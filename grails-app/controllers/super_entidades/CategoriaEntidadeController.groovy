@@ -1,7 +1,11 @@
 package super_entidades
 
+import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
 import grails.validation.ValidationException
+
+import java.time.DateTimeException
+
 import static org.springframework.http.HttpStatus.*
 
 class CategoriaEntidadeController {
@@ -40,18 +44,22 @@ class CategoriaEntidadeController {
             categoriaEntidade.estado = estado
         }
         if (notNullEmpty(params.dataMofif)){
-            dataModif = params.dataModif
-            categoriaEntidade.dataModif = dataModif
+            categoriaEntidade.dataModif = Date.parse("yyyy-MM-dd")
+
         }
         if(notNullEmpty(params.dataRegisto)){
-            dataRegisto = params.dataRegisto
-            categoriaEntidade.dataRegisto = dataRegisto
+            categoriaEntidade.dataRegisto = Date.parse("yyyy-MM-dd")
         }
-
-
         //registo
-
+        def msg = [:]
+        try {
+            categoriaEntidade.save(flush: true)
+            msg['msg'] = "Salvo com Sucesso"
+        } catch (Exception e) {
+           msg['msg'] = e.getMessage()
+        }
         //retorno
+        return categoriaEntidade
     }
 
 
