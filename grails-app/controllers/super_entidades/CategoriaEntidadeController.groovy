@@ -9,6 +9,10 @@ class CategoriaEntidadeController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
+    def metodo(){
+        
+    }
+
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond categoriaEntidadeService.list(params), model:[categoriaEntidadeCount: categoriaEntidadeService.count()]
