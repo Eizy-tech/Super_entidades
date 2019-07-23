@@ -8,6 +8,8 @@ class UrlMappings {
                 // apply constraints here
             }
         }
+        //teste
+        //fader
 
 //        "/"(controller: 'entidade')
         "/"(view:"/index")

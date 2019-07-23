@@ -96,4 +96,8 @@ class CategoriaEntidadeController {
             '*'{ render status: NOT_FOUND }
         }
     }
+
+    public void metodoFader(){
+
+    }
 }
