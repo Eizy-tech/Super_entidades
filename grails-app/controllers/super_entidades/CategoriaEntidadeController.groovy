@@ -10,7 +10,7 @@ class CategoriaEntidadeController {
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def metodo(){
-        
+        //Qualquer coisa ai dentro
     }
 
     def index(Integer max) {
