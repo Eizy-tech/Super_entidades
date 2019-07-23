@@ -1,5 +1,6 @@
 package super_entidades
 
+import grails.plugin.springsecurity.annotation.Secured
 import grails.validation.ValidationException
 import static org.springframework.http.HttpStatus.*
 
@@ -9,43 +10,44 @@ class CategoriaEntidadeController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
-    def descrisao
-    def estado
-    def DataModif
-    def DataRegisto
+    // metodo de verificao nao nullo e vazio
+    def notNullEmpty( String var){
+        def result = true
 
-    def notNullEmpty(){
-        if (not){
-            n
+        if (var == null || var == ""){
+            result == false
         }
     }
-
+    // Metodo para adicionar categoriaEntidade
+    // Somente utilizador autorizado
+    @Secured(['ROLE_ADMIN' , 'ROLE_USER'])
     def salvar() {
 
         // declaracao
-        def categoriaEntidade
         def descrisao
         def estado
         def dataModif
         def dataRegisto
+        def categoriaEntidade
 
         // validacao & atribuicao
-        if (params.descrisao !=null && params.descrisao !="") {
+        if (notNullEmpty(params.descricao)) {
             descrisao = params.descrisao
             categoriaEntidade.descrisao = descrisao
         }
-        if (params.estado !=null && params.estado !=""){
+        if (notNullEmpty(params.estado)){
             estado = params.estado
             categoriaEntidade.estado = estado
         }
-        if (params.dataModif != null && params.dataModif !=""){
+        if (notNullEmpty(params.dataMofif)){
             dataModif = params.dataModif
-            categoriaEntidade.dataModif = dataMofif
+            categoriaEntidade.dataModif = dataModif
         }
-        if (params.dataRegisto != null && params.dataRegisto !=""){
+        if(notNullEmpty(params.dataRegisto)){
             dataRegisto = params.dataRegisto
-            categoriaEntidade.dataModif = dataRegisto
+            categoriaEntidade.dataRegisto = dataRegisto
         }
+
 
         //registo
 
