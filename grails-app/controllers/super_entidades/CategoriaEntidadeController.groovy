@@ -104,6 +104,11 @@ class CategoriaEntidadeController {
         }
     }
 
+
+    public void metodoFader(){
+
+    }
+
     def salvar() {
 //        def entidade
 //        def idEntidade = params.idEntidade.toInteger()
