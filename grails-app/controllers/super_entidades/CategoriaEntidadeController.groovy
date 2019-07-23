@@ -9,9 +9,16 @@ class CategoriaEntidadeController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
+    def Entidade
+    def descrisao
+    def estado
+    def DataModif
+    def DataRegisto
+
+
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond categoriaEntidadeService.list(params), model:[categoriaEntidadeCount: categoriaEntidadeService.count()]
+        respond categoriaEntidadeService.list(params), model: [categoriaEntidadeCount: categoriaEntidadeService.count()]
     }
 
     def show(Long id) {
@@ -20,6 +27,7 @@ class CategoriaEntidadeController {
 
     def create() {
         respond new CategoriaEntidade(params)
+
     }
 
     def save(CategoriaEntidade categoriaEntidade) {
@@ -31,7 +39,7 @@ class CategoriaEntidadeController {
         try {
             categoriaEntidadeService.save(categoriaEntidade)
         } catch (ValidationException e) {
-            respond categoriaEntidade.errors, view:'create'
+            respond categoriaEntidade.errors, view: 'create'
             return
         }
 
@@ -57,7 +65,7 @@ class CategoriaEntidadeController {
         try {
             categoriaEntidadeService.save(categoriaEntidade)
         } catch (ValidationException e) {
-            respond categoriaEntidade.errors, view:'edit'
+            respond categoriaEntidade.errors, view: 'edit'
             return
         }
 
@@ -66,7 +74,7 @@ class CategoriaEntidadeController {
                 flash.message = message(code: 'default.updated.message', args: [message(code: 'categoriaEntidade.label', default: 'CategoriaEntidade'), categoriaEntidade.id])
                 redirect categoriaEntidade
             }
-            '*'{ respond categoriaEntidade, [status: OK] }
+            '*' { respond categoriaEntidade, [status: OK] }
         }
     }
 
@@ -81,9 +89,9 @@ class CategoriaEntidadeController {
         request.withFormat {
             form multipartForm {
                 flash.message = message(code: 'default.deleted.message', args: [message(code: 'categoriaEntidade.label', default: 'CategoriaEntidade'), id])
-                redirect action:"index", method:"GET"
+                redirect action: "index", method: "GET"
             }
-            '*'{ render status: NO_CONTENT }
+            '*' { render status: NO_CONTENT }
         }
     }
 
@@ -93,7 +101,27 @@ class CategoriaEntidadeController {
                 flash.message = message(code: 'default.not.found.message', args: [message(code: 'categoriaEntidade.label', default: 'CategoriaEntidade'), params.id])
                 redirect action: "index", method: "GET"
             }
-            '*'{ render status: NOT_FOUND }
+            '*' { render status: NOT_FOUND }
         }
     }
+
+    def salvar() {
+//        def entidade
+//        def idEntidade = params.idEntidade.toInteger()
+//        if (idEntidade == null) {
+//            Entidade = EntidadeController.salvarEntidade(new Entidade())
+//            Entidade.codigo = EntidadeController.codigoEntidade()
+//        } else {
+//            entidade = EntidadeController.salvarEntidade(Entidade.get(idEntidade))
+//        }
+        def categoriaEntidade
+        if (params.categoriaEntidade) {
+            categoriaEntidade = categoriaEntidade.get(params.categoriaEntidade)
+        }
+        categoriaEntidade.estado = "Activo"
+        CategoriaEntidade.dataModif = new Date()
+        CategoriaEntidade.dataRegisto = new Date()
+
+    }
+
 }

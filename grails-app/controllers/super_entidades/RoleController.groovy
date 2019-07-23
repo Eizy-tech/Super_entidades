@@ -3,71 +3,70 @@ package super_entidades
 import grails.validation.ValidationException
 import static org.springframework.http.HttpStatus.*
 
-class VagaController {
+class RoleController {
 
-    VagaService vagaService
+    RoleService roleService
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
-        respond vagaService.list(params), model:[vagaCount: vagaService.count()]
+        respond roleService.list(params), model:[roleCount: roleService.count()]
     }
 
     def show(Long id) {
-        respond vagaService.get(id)
+        respond roleService.get(id)
     }
 
     def create() {
-        respond new Vaga(params)
-
+        respond new Role(params)
     }
 
-    def save(Vaga vaga) {
-        if (vaga == null) {
+    def save(Role role) {
+        if (role == null) {
             notFound()
             return
         }
 
         try {
-            vagaService.save(vaga)
+            roleService.save(role)
         } catch (ValidationException e) {
-            respond vaga.errors, view:'create'
+            respond role.errors, view:'create'
             return
         }
 
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.created.message', args: [message(code: 'vaga.label', default: 'Vaga'), vaga.id])
-                redirect vaga
+                flash.message = message(code: 'default.created.message', args: [message(code: 'role.label', default: 'Role'), role.id])
+                redirect role
             }
-            '*' { respond vaga, [status: CREATED] }
+            '*' { respond role, [status: CREATED] }
         }
     }
 
     def edit(Long id) {
-        respond vagaService.get(id)
+        respond roleService.get(id)
     }
 
-    def update(Vaga vaga) {
-        if (vaga == null) {
+    def update(Role role) {
+        if (role == null) {
             notFound()
             return
         }
 
         try {
-            vagaService.save(vaga)
+            roleService.save(role)
         } catch (ValidationException e) {
-            respond vaga.errors, view:'edit'
+            respond role.errors, view:'edit'
             return
         }
 
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.updated.message', args: [message(code: 'vaga.label', default: 'Vaga'), vaga.id])
-                redirect vaga
+                flash.message = message(code: 'default.updated.message', args: [message(code: 'role.label', default: 'Role'), role.id])
+                redirect role
             }
-            '*'{ respond vaga, [status: OK] }
+            '*'{ respond role, [status: OK] }
         }
     }
 
@@ -77,11 +76,11 @@ class VagaController {
             return
         }
 
-        vagaService.delete(id)
+        roleService.delete(id)
 
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.deleted.message', args: [message(code: 'vaga.label', default: 'Vaga'), id])
+                flash.message = message(code: 'default.deleted.message', args: [message(code: 'role.label', default: 'Role'), id])
                 redirect action:"index", method:"GET"
             }
             '*'{ render status: NO_CONTENT }
@@ -91,7 +90,7 @@ class VagaController {
     protected void notFound() {
         request.withFormat {
             form multipartForm {
-                flash.message = message(code: 'default.not.found.message', args: [message(code: 'vaga.label', default: 'Vaga'), params.id])
+                flash.message = message(code: 'default.not.found.message', args: [message(code: 'role.label', default: 'Role'), params.id])
                 redirect action: "index", method: "GET"
             }
             '*'{ render status: NOT_FOUND }
