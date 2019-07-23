@@ -44,11 +44,10 @@ class CategoriaEntidadeController {
             categoriaEntidade.estado = estado
         }
         if (notNullEmpty(params.dataMofif)){
-            categoriaEntidade.dataModif = Date.parse("yyyy-MM-dd")
-
+            categoriaEntidade.dataModif = Date.parse("yyyy-MM-dd",dataModif)
         }
         if(notNullEmpty(params.dataRegisto)){
-            categoriaEntidade.dataRegisto = Date.parse("yyyy-MM-dd")
+            categoriaEntidade.dataRegisto = Date.parse("yyyy-MM-dd",dataRegisto)
         }
         //registo
         def msg = [:]
