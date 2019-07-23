@@ -122,5 +122,4 @@ class CategoriaEntidadeController {
         CategoriaEntidade.dataRegisto = new Date()
 
     }
-
 }
