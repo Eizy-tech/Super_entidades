@@ -8,7 +8,7 @@ class CategoriaEntidadeController {
     CategoriaEntidadeService categoriaEntidadeService
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
-    
+
     def descrisao
     def estado
     def DataModif
