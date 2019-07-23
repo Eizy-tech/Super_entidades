@@ -9,7 +9,6 @@ class CategoriaEntidadeController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
-    def Entidade
     def descrisao
     def estado
     def DataModif
