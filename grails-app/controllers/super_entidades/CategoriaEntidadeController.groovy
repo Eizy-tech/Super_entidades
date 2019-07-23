@@ -14,6 +14,44 @@ class CategoriaEntidadeController {
     def DataModif
     def DataRegisto
 
+    def notNullEmpty(){
+        if (not){
+            n
+        }
+    }
+
+    def salvar() {
+
+        // declaracao
+        def categoriaEntidade
+        def descrisao
+        def estado
+        def dataModif
+        def dataRegisto
+
+        // validacao & atribuicao
+        if (params.descrisao !=null && params.descrisao !="") {
+            descrisao = params.descrisao
+            categoriaEntidade.descrisao = descrisao
+        }
+        if (params.estado !=null && params.estado !=""){
+            estado = params.estado
+            categoriaEntidade.estado = estado
+        }
+        if (params.dataModif != null && params.dataModif !=""){
+            dataModif = params.dataModif
+            categoriaEntidade.dataModif = dataMofif
+        }
+        if (params.dataRegisto != null && params.dataRegisto !=""){
+            dataRegisto = params.dataRegisto
+            categoriaEntidade.dataModif = dataRegisto
+        }
+
+        //registo
+
+        //retorno
+    }
+
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
@@ -105,26 +143,4 @@ class CategoriaEntidadeController {
     }
 
 
-    public void metodoFader(){
-
-    }
-
-    def salvar() {
-//        def entidade
-//        def idEntidade = params.idEntidade.toInteger()
-//        if (idEntidade == null) {
-//            Entidade = EntidadeController.salvarEntidade(new Entidade())
-//            Entidade.codigo = EntidadeController.codigoEntidade()
-//        } else {
-//            entidade = EntidadeController.salvarEntidade(Entidade.get(idEntidade))
-//        }
-        def categoriaEntidade
-        if (params.categoriaEntidade) {
-            categoriaEntidade = categoriaEntidade.get(params.categoriaEntidade)
-        }
-        categoriaEntidade.estado = "Activo"
-        CategoriaEntidade.dataModif = new Date()
-        CategoriaEntidade.dataRegisto = new Date()
-
-    }
 }
