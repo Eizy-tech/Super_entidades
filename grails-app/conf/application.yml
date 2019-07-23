@@ -99,7 +99,7 @@ dataSource:
 environments:
     development:
         dataSource:
-            dbCreate: update
+            dbCreate:  update #create-drop
             url: jdbc:mysql://127.0.0.1:3306/super_entidades
     test:
         dataSource:
