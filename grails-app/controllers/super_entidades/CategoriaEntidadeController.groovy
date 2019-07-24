@@ -49,7 +49,7 @@ class CategoriaEntidadeController {
         if(notNullEmpty(params.dataRegisto)){
             categoriaEntidade.dataRegisto = Date.parse("yyyy-MM-dd",dataRegisto)
         }
-        //registo
+        
         def msg = [:]
         try {
             categoriaEntidade.save(flush: true)
@@ -57,7 +57,6 @@ class CategoriaEntidadeController {
         } catch (Exception e) {
            msg['msg'] = e.getMessage()
         }
-        //retorno
         return categoriaEntidade
     }
 
