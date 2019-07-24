@@ -1,5 +1,6 @@
 package super_entidades
 
+import grails.plugin.springsecurity.annotation.Secured
 import grails.validation.ValidationException
 import static org.springframework.http.HttpStatus.*
 
@@ -8,6 +9,38 @@ class PacoteController {
     PacoteService pacoteService
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+
+    //Nao nulo nem empty
+    def notNullEmpty (String var){
+        def result = true
+
+        if(var == null || var == ""){
+            result = false
+        }
+    }
+
+    //Metodo para adicionar um pacote
+    @Secured(['ROLE_ADMIN' , 'ROLE_USER']) // Somente utilizador autorizado
+    def salvar(){
+        //declaracao de variaveis
+        def descricao, estado, preco, dataRegisto, dataModif
+        def pacote = new Pacote()
+
+        //Validacao e Atribuicao
+        if(notNullEmpty(params.descricao)){
+            descricao = params.descricao
+            pacote.descricao = descricao
+        }
+        if(notNullEmpty(params.estado)){
+            estado = params.estado
+        }
+
+        //Registo (If todos campos obrigatorios estiverem bem preenchidos/validados)
+
+
+        //Retorno (Mensagem de confirmação bem sucedida do registo caso tenha sido efectuada com sucesso, caso contrário, mensagem de erro.)
+
+    }
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)

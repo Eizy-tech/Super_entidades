@@ -1,6 +1,11 @@
 package super_entidades
 
+import grails.converters.JSON
+import grails.plugin.springsecurity.annotation.Secured
 import grails.validation.ValidationException
+
+import java.time.DateTimeException
+
 import static org.springframework.http.HttpStatus.*
 
 class CategoriaEntidadeController {
@@ -9,10 +14,51 @@ class CategoriaEntidadeController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
-    def descrisao
-    def estado
-    def DataModif
-    def DataRegisto
+    // metodo de verificao nao nullo e vazio
+    def notNullEmpty( String var){
+        def result = true
+
+        if (var == null || var == ""){
+            result == false
+        }
+    }
+    // Metodo para adicionar categoriaEntidade
+    // Somente utilizador autorizado
+    @Secured(['ROLE_ADMIN' , 'ROLE_USER'])
+    def salvar() {
+
+        // declaracao
+        def descrisao
+        def estado
+        def dataModif
+        def dataRegisto
+        def categoriaEntidade = new CategoriaEntidade()
+
+        // validacao & atribuicao
+        if (notNullEmpty(params.descricao)) {
+            descrisao = params.descrisao
+            categoriaEntidade.descrisao = descrisao
+        }
+        if (notNullEmpty(params.estado)){
+            estado = params.estado
+            categoriaEntidade.estado = estado
+        }
+        if (notNullEmpty(params.dataMofif)){
+            categoriaEntidade.dataModif = Date.parse("yyyy-MM-dd",dataModif)
+        }
+        if(notNullEmpty(params.dataRegisto)){
+            categoriaEntidade.dataRegisto = Date.parse("yyyy-MM-dd",dataRegisto)
+        }
+
+        def msg = [:]
+        try {
+            categoriaEntidade.save(flush: true)
+            msg['msg'] = "Salvo com Sucesso"
+        } catch (Exception e) {
+           msg['msg'] = e.getMessage()
+        }
+        return categoriaEntidade
+    }
 
 
     def index(Integer max) {
@@ -104,28 +150,5 @@ class CategoriaEntidadeController {
         }
     }
 
-
-    public void metodoFader(){
-
-    }
-
-    def salvar() {
-//        def entidade
-//        def idEntidade = params.idEntidade.toInteger()
-//        if (idEntidade == null) {
-//            Entidade = EntidadeController.salvarEntidade(new Entidade())
-//            Entidade.codigo = EntidadeController.codigoEntidade()
-//        } else {
-//            entidade = EntidadeController.salvarEntidade(Entidade.get(idEntidade))
-//        }
-        def categoriaEntidade
-        if (params.categoriaEntidade) {
-            categoriaEntidade = categoriaEntidade.get(params.categoriaEntidade)
-        }
-        categoriaEntidade.estado = "Activo"
-        CategoriaEntidade.dataModif = new Date()
-        CategoriaEntidade.dataRegisto = new Date()
-
-    }
 
 }
