@@ -9,8 +9,8 @@
 
     <div class="container-fluid">
         <form id="formulario">
-            <input name="descricao" type="text">
-            <input name="data" type="text">
+            <input name="descricao" type="text" required>
+            <button class="btn btn-sm btn-warning" type="submit">Save</button>
         </form>
     </div>
         %{--<a href="#create-categoriaEntidade" class="skip" tabindex="-1"><g:message code="default.link.skip.label" default="Skip to content&hellip;"/></a>--}%
@@ -41,5 +41,28 @@
                 %{--</fieldset>--}%
             %{--</g:form>--}%
         %{--</div>--}%
+
+    <asset:javascript src="app.min.js"/>
+
+
+    <script>
+        $(document).ready(function () {
+            $("#formulario").submit(function (event) {
+                event.preventDefault();
+                $.ajax({
+                    url: "${g.createLink( controller: 'categoriaEntidade', action:'salvar')}",
+                    type: "post",
+                    data: $(this).serialize(),
+                    success: function (data) {
+                        window.location ='/categoriaEntidade/show/'+data.categoria.id;
+                        alert('alert sera 1 cena');
+                    },
+                    error: function () {
+                        console.log('Error ao enviar email');
+                    }
+                });
+            });
+        })
+    </script>
     </body>
 </html>

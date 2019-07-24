@@ -7,6 +7,7 @@ import grails.validation.ValidationException
 import java.time.DateTimeException
 
 import static org.springframework.http.HttpStatus.*
+@Secured(['ROLE_ADMIN' , 'ROLE_USER'])
 
 class CategoriaEntidadeController {
 
@@ -27,28 +28,33 @@ class CategoriaEntidadeController {
     @Secured(['ROLE_ADMIN' , 'ROLE_USER'])
     def salvar() {
 
+        println('Descricao: '+ params.descricao)
+
         // declaracao
-        def descrisao
-        def estado
-        def dataModif
-        def dataRegisto
+//        def descrisao
+//        def estado
+//        def dataModif
+//        def dataRegisto
         def categoriaEntidade = new CategoriaEntidade()
+        categoriaEntidade.setDescricao(params.descricao)
+        categoriaEntidade.setDataModif(new Date())
+        categoriaEntidade.setDataRegisto(new Date())
 
         // validacao & atribuicao
-        if (notNullEmpty(params.descricao)) {
-            descrisao = params.descrisao
-            categoriaEntidade.descrisao = descrisao
-        }
-        if (notNullEmpty(params.estado)){
-            estado = params.estado
-            categoriaEntidade.estado = estado
-        }
-        if (notNullEmpty(params.dataMofif)){
-            categoriaEntidade.dataModif = Date.parse("yyyy-MM-dd",dataModif)
-        }
-        if(notNullEmpty(params.dataRegisto)){
-            categoriaEntidade.dataRegisto = Date.parse("yyyy-MM-dd",dataRegisto)
-        }
+//        if (notNullEmpty(params.descricao)) {
+//            descrisao = params.descrisao
+//            categoriaEntidade.descrisao = descrisao
+//        }
+//        if (notNullEmpty(params.estado)){
+//            estado = params.estado
+//            categoriaEntidade.estado = estado
+//        }
+//        if (notNullEmpty(params.dataMofif)){
+//            categoriaEntidade.dataModif = Date.parse("yyyy-MM-dd",dataModif)
+//        }
+//        if(notNullEmpty(params.dataRegisto)){
+//            categoriaEntidade.dataRegisto = Date.parse("yyyy-MM-dd",dataRegisto)
+//        }
 
         def msg = [:]
         try {
@@ -57,7 +63,8 @@ class CategoriaEntidadeController {
         } catch (Exception e) {
            msg['msg'] = e.getMessage()
         }
-        return categoriaEntidade
+        msg['categoria'] = categoriaEntidade
+        render msg as JSON
     }
 
 
@@ -68,6 +75,9 @@ class CategoriaEntidadeController {
 
     def show(Long id) {
         respond categoriaEntidadeService.get(id)
+    }
+    def show2(Long id) {
+        render Entidade.get(id) as JSON
     }
 
     def create() {
