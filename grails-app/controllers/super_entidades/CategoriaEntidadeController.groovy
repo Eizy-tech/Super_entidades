@@ -32,7 +32,7 @@ class CategoriaEntidadeController {
         def estado
         def dataModif
         def dataRegisto
-        def categoriaEntidade
+        def categoriaEntidade = new CategoriaEntidade()
 
         // validacao & atribuicao
         if (notNullEmpty(params.descricao)) {
@@ -49,7 +49,7 @@ class CategoriaEntidadeController {
         if(notNullEmpty(params.dataRegisto)){
             categoriaEntidade.dataRegisto = Date.parse("yyyy-MM-dd",dataRegisto)
         }
-        
+
         def msg = [:]
         try {
             categoriaEntidade.save(flush: true)
