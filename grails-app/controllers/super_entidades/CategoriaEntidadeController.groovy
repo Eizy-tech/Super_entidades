@@ -28,33 +28,32 @@ class CategoriaEntidadeController {
     @Secured(['ROLE_ADMIN' , 'ROLE_USER'])
     def salvar() {
 
-        println('Descricao: '+ params.descricao)
-
-        // declaracao
-//        def descrisao
-//        def estado
-//        def dataModif
-//        def dataRegisto
+     // declaracao
+        def descrisao
+        def estado
+        def dataModif
+        def dataRegisto
         def categoriaEntidade = new CategoriaEntidade()
+
+     // validacao & atribuicao
+        if (notNullEmpty(params.descricao)) {
+            descrisao = params.descrisao
+            categoriaEntidade.descrisao = descrisao
+        }
+        if (notNullEmpty(params.estado)){
+            estado = params.estado
+            categoriaEntidade.estado = estado
+        }
+        if (notNullEmpty(params.dataMofif)){
+            categoriaEntidade.dataModif = Date.parse("yyyy-MM-dd",dataModif)
+        }
+        if(notNullEmpty(params.dataRegisto)){
+            categoriaEntidade.dataRegisto = Date.parse("yyyy-MM-dd",dataRegisto)
+        }
+
         categoriaEntidade.setDescricao(params.descricao)
         categoriaEntidade.setDataModif(new Date())
         categoriaEntidade.setDataRegisto(new Date())
-
-        // validacao & atribuicao
-//        if (notNullEmpty(params.descricao)) {
-//            descrisao = params.descrisao
-//            categoriaEntidade.descrisao = descrisao
-//        }
-//        if (notNullEmpty(params.estado)){
-//            estado = params.estado
-//            categoriaEntidade.estado = estado
-//        }
-//        if (notNullEmpty(params.dataMofif)){
-//            categoriaEntidade.dataModif = Date.parse("yyyy-MM-dd",dataModif)
-//        }
-//        if(notNullEmpty(params.dataRegisto)){
-//            categoriaEntidade.dataRegisto = Date.parse("yyyy-MM-dd",dataRegisto)
-//        }
 
         def msg = [:]
         try {
@@ -63,10 +62,8 @@ class CategoriaEntidadeController {
         } catch (Exception e) {
            msg['msg'] = e.getMessage()
         }
-        msg['categoria'] = categoriaEntidade
         render msg as JSON
     }
-
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
