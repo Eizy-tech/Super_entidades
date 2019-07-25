@@ -33,7 +33,7 @@
                     // console.log(data.pacote);
                 },
                 error: function (data) {
-                    alert(data.msg);
+                    alert(data.msg+""+data.msg1);
                     // console.log(data.msg);
                 }
             });
