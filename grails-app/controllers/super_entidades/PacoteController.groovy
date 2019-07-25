@@ -1,9 +1,10 @@
 package super_entidades
 
+import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
 import grails.validation.ValidationException
 import static org.springframework.http.HttpStatus.*
-
+@Secured(['ROLE_ADMIN' , 'ROLE_USER'])
 class PacoteController {
 
     PacoteService pacoteService
@@ -19,27 +20,28 @@ class PacoteController {
         }
     }
 
+
+
     //Metodo para adicionar um pacote
     @Secured(['ROLE_ADMIN' , 'ROLE_USER']) // Somente utilizador autorizado
     def salvar(){
-        //declaracao de variaveis
-        def descricao, estado, preco, dataRegisto, dataModif
+        def msg=[:]
         def pacote = new Pacote()
+        pacote.setDescricao(params.descricao)
+        pacote.setEstado(params.estado)
+        pacote.setPreco(Double.parseDouble(params.preco))
+        pacote.setDataRegisto(new Date())
+        pacote.setDataModif(new Date())
 
-        //Validacao e Atribuicao
-        if(notNullEmpty(params.descricao)){
-            descricao = params.descricao
-            pacote.descricao = descricao
+        try {
+            pacote.setDescricao('')
+            pacoteService.save(pacote)
+            msg['msg'] = "Salvo com Sucesso"
+            msg['pacote'] = pacote
+        } catch (Exception e) {
+            msg['msg'] = "Erro: "+e.getMessage()+"\n contacte o tecnico."
         }
-        if(notNullEmpty(params.estado)){
-            estado = params.estado
-        }
-
-        //Registo (If todos campos obrigatorios estiverem bem preenchidos/validados)
-
-
-        //Retorno (Mensagem de confirmação bem sucedida do registo caso tenha sido efectuada com sucesso, caso contrário, mensagem de erro.)
-
+        render msg as JSON
     }
 
     def index(Integer max) {
@@ -62,7 +64,8 @@ class PacoteController {
         }
 
         try {
-            pacoteService.save(pacote)
+            //pacoteService.save(pacote)
+            pacote.save()
         } catch (ValidationException e) {
             respond pacote.errors, view:'create'
             return

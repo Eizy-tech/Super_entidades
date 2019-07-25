@@ -10,5 +10,8 @@ class Pacote {
 
     static hasMany = [entidadePacote: EntidadePacote]
     static constraints = {
+        descricao(nullable:false,blank:false)
+        estado(nullable: false,blank:false)
+        preco(nullable: false,blank:false)
     }
 }
