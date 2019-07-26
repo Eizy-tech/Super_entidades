@@ -22,7 +22,7 @@ class PortifolioItemController {
 
         portifolioItem.setDataRegisto(new Date())
         portifolioItem.setDataModif(new Date())
-        portifolioItem.entidade = entidade() //faltam atributos do usuario logado
+//        portifolioItem.entidade = entidade() //faltam atributos do usuario logado
 
         portifolioItem.utilizadorRegisto = utilizadorLogado()
         portifolioItem.utilizadorModif = utilizadorLogado()

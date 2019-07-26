@@ -1,5 +1,7 @@
 package super_entidades
 
+import grails.converters.JSON
+import grails.plugin.springsecurity.annotation.Secured
 import grails.validation.ValidationException
 import static org.springframework.http.HttpStatus.*
 
@@ -8,6 +10,27 @@ class AuditoriaController {
     AuditoriaService auditoriaService
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+
+    // Metodo para adicionar auditoria
+    // Somente utilizador autorizado
+
+    @Secured(['ROLE_ADMIN' , 'ROLE_USER'])
+    def salvar(Auditoria auditoria) {
+
+        auditoria.setDataRegisto(new Date())
+        auditoria.setDataModif(new Date())
+
+        def msg = [:]
+        try {
+            auditoriaService.save(auditoria)
+            msg['msg'] = "Done"
+            msg['auditoria'] = auditoria
+        } catch (ValidationException e) {
+            msg ['msg'] = "Error:" + e.getMessage()
+        }
+        render msg as JSON
+    }
+
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
