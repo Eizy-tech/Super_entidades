@@ -18,6 +18,7 @@ class PacoteController {
         pacote.setDataRegisto(new Date())
         pacote.setDataModif(new Date())
 
+
         try {
             pacoteService.save(pacote)
             msg['msg'] = "Salvo com Sucesso"

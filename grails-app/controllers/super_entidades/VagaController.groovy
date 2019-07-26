@@ -1,13 +1,48 @@
 package super_entidades
 
+import grails.converters.JSON
+import grails.plugin.springsecurity.annotation.Secured
 import grails.validation.ValidationException
 import static org.springframework.http.HttpStatus.*
+@Secured(['ROLE_ADMIN' , 'ROLE_USER'])
 
 class VagaController {
 
     VagaService vagaService
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+
+    def springSecurityService
+    def utilizadorLogado(){
+        def utilizador = (Utilizador)springSecurityService.currentUser
+        return utilizador
+    }
+
+    // Metodo para adicionar vaga
+    // Somente utilizador autorizado
+
+    @Secured(['ROLE_ADMIN' , 'ROLE_USER'])
+    def salvar(Vaga vaga){
+
+        vaga.setDataRegisto(new Date())
+        vaga.setDataModif(new Date())
+        vaga.setEntidade() // faltam atributos do utilizador logado
+
+        vaga.utilizadorRegisto = utilizadorLogado()
+        vaga.utilizadorModif = utilizadorLogado()
+
+        def msg = [:]
+        try {
+            vagaService.save(vaga)
+            msg ['msg'] = "Publicacao Feita com Sucesso"
+            msg['vaga'] = Vaga
+        }
+        catch (ValidationException e){
+            msg ['msg'] = "Error:" + e.getMessage()
+        }
+        render msg as JSON
+    }
+
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
