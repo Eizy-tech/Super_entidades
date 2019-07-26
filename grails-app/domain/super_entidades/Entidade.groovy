@@ -6,6 +6,7 @@ class Entidade {
     Double latitude, longitude
     Boolean activo = true
     Date dataRegisto, dataModif
+    Utilizador utilizadorRegisto, utilizadorModif
 
     static hasMany = [vagas: Vaga, portifolios:PortifolioItem, entidadePacote: EntidadePacote, contactoMsg:ContactoMsg]
     static belongsTo = [categoria: CategoriaEntidade]
