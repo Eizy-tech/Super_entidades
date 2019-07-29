@@ -14,4 +14,21 @@ class Pacote {
         estado(nullable: false,blank:false)
         preco(nullable: false,blank:false)
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

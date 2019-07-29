@@ -9,7 +9,7 @@ class PacoteController {
 
     PacoteService pacoteService
 
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]6666
+    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
 
     //Metodo para adicionar um pacote
@@ -34,6 +34,10 @@ class PacoteController {
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond pacoteService.list(params), model:[pacoteCount: pacoteService.count()]
+    }
+
+    def indexl(Integer max) {
+        render(view: "index", model:[clienteList: Cliente.list(), users: User.list(params)])
     }
 
     def show(Long id) {
