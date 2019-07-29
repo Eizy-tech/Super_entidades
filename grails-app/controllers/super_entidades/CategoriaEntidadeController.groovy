@@ -15,52 +15,31 @@ class CategoriaEntidadeController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
-    // metodo de verificao nao nullo e vazio
-    def notNullEmpty( String var){
-        def result = true
-
-        if (var == null || var == ""){
-            result == false
-        }
+    def springSecurityService
+    def utilizadorLogado(){
+        def utilizador = (Utilizador)springSecurityService.currentUser
+        return utilizador
     }
+
     // Metodo para adicionar categoriaEntidade
     // Somente utilizador autorizado
+
     @Secured(['ROLE_ADMIN' , 'ROLE_USER'])
-    def salvar() {
+    def salvar(CategoriaEntidade categoriaEntidade) {
 
-     // declaracao
-        def descrisao
-        def estado
-        def dataModif
-        def dataRegisto
-        def categoriaEntidade = new CategoriaEntidade()
-
-     // validacao & atribuicao
-        if (notNullEmpty(params.descricao)) {
-            descrisao = params.descrisao
-            categoriaEntidade.descrisao = descrisao
-        }
-        if (notNullEmpty(params.estado)){
-            estado = params.estado
-            categoriaEntidade.estado = estado
-        }
-        if (notNullEmpty(params.dataMofif)){
-            categoriaEntidade.dataModif = Date.parse("yyyy-MM-dd",dataModif)
-        }
-        if(notNullEmpty(params.dataRegisto)){
-            categoriaEntidade.dataRegisto = Date.parse("yyyy-MM-dd",dataRegisto)
-        }
-
-        categoriaEntidade.setDescricao(params.descricao)
-        categoriaEntidade.setDataModif(new Date())
         categoriaEntidade.setDataRegisto(new Date())
+        categoriaEntidade.setDataModif(new Date())
+
+        categoriaEntidade.utilizadorRegisto = utilizadorLogado()
+        categoriaEntidade.utilizadorModif = utilizadorLogado()
 
         def msg = [:]
         try {
-            categoriaEntidade.save(flush: true)
+            categoriaEntidadeService.save(categoriaEntidade)
             msg['msg'] = "Salvo com Sucesso"
-        } catch (Exception e) {
-           msg['msg'] = e.getMessage()
+            msg['categoriaEntidade'] = categoriaEntidade
+        } catch (ValidationException e) {
+            msg ['msg'] = "Error:" + e.getMessage()
         }
         render msg as JSON
     }

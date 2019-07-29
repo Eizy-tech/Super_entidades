@@ -1,13 +1,37 @@
 package super_entidades
 
+import grails.converters.JSON
+import grails.plugin.springsecurity.annotation.Secured
 import grails.validation.ValidationException
 import static org.springframework.http.HttpStatus.*
 
+
+@Secured(['ROLE_ADMIN' , 'ROLE_USER'])
 class VisitaController {
 
     VisitaService visitaService
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+
+    // Metodo para adicionar visita
+    // Somente utilizador autorizado
+
+    @Secured(['ROLE_ADMIN' , 'ROLE_USER'])
+    def salvar(Visita visita) {
+
+        visita.setDataRegisto(new Date())
+        visita.setDataModif(new Date())
+
+        def msg = [:]
+        try {
+            visitaService.save(visita)
+            msg['msg'] = "Done"
+            msg['visita'] = visita
+        } catch (ValidationException e) {
+            msg ['msg'] = "Error:" + e.getMessage()
+        }
+        render msg as JSON
+    }
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)

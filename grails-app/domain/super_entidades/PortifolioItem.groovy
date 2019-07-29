@@ -7,6 +7,7 @@ class PortifolioItem {
     String estado
     Entidade entidade
     Date dataRegisto, dataModif
+    Utilizador utilizadorRegisto, UtilizadorModif
 
     static belongsTo = [entidade:Entidade]
     static constraints = {

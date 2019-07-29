@@ -1,13 +1,42 @@
 package super_entidades
 
+import grails.converters.JSON
+import grails.plugin.springsecurity.annotation.Secured
 import grails.validation.ValidationException
 import static org.springframework.http.HttpStatus.*
 
+@Secured(['ROLE_ADMIN' , 'ROLE_USER'])
 class PortifolioItemController {
 
     PortifolioItemService portifolioItemService
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+
+    def springSecurityService
+    def utilizadorLogado(){
+        def utilizador = (Utilizador)springSecurityService.currentUser
+        return utilizador
+    }
+    @Secured(['ROLE_ADMIN' , 'ROLE_USER'])
+    def salvar(PortifolioItem portifolioItem){
+
+        portifolioItem.setDataRegisto(new Date())
+        portifolioItem.setDataModif(new Date())
+//        portifolioItem.entidade = entidade() //faltam atributos do usuario logado
+
+        portifolioItem.utilizadorRegisto = utilizadorLogado()
+        portifolioItem.utilizadorModif = utilizadorLogado()
+        def msg = [:]
+        try {
+            portifolioItemService.save(portifolioItem)
+            msg ['msg'] = "Salvo com sucesso"
+            msg ['PorttifolioItem'] = PortifolioItem
+        }
+        catch (ValidationException e){
+            msg ['msg'] = "Error:" + e.getMessage()
+        }
+        render msg as JSON
+    }
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
