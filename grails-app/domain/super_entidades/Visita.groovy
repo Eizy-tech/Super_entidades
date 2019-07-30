@@ -8,7 +8,6 @@ class Visita {
     Auditoria auditoria
     Date dataRegisto, dataModif
 
-
     static belongsTo = [auditoria: Auditoria]
 
     static constraints = {
