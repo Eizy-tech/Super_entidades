@@ -5,7 +5,6 @@ import grails.plugin.springsecurity.annotation.Secured
 import grails.validation.ValidationException
 import static org.springframework.http.HttpStatus.*
 
-@Secured(['ROLE_ADMIN' , 'ROLE_USER'])
 class PortifolioItemController {
 
     PortifolioItemService portifolioItemService
@@ -38,6 +37,8 @@ class PortifolioItemController {
         render msg as JSON
     }
 
+//=======
+//>>>>>>> parent of 095c9e9... Merge branch 'master' of https://github.com/Eizy-tech/Super_entidades
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond portifolioItemService.list(params), model:[portifolioItemCount: portifolioItemService.count()]

@@ -1,39 +1,16 @@
 package super_entidades
 
-import grails.converters.JSON
-import grails.plugin.springsecurity.annotation.Secured
 import grails.validation.ValidationException
 import static org.springframework.http.HttpStatus.*
 
-@Secured(['ROLE_ADMIN' , 'ROLE_USER'])
 class ContactoMsgController {
 
     ContactoMsgService contactoMsgService
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
-    // Metodo para adicionar contactoMsg
-    // Somente utilizador autorizado
-
-    @Secured(['ROLE_ADMIN' , 'ROLE_USER'])
-    def salvar(ContactoMsg contactoMsg){
-
-        contactoMsg.setDataEnvio(new Date())
-        contactoMsg.setEntidade() // faltam atributos do utilizador logado
-
-        def msg = [:]
-        try {
-            contactoMsgService.save(contactoMsg)
-            msg ['msg'] = "Contacto enviado com Sucesso"
-            msg['contactoMsg'] = contactoMsg
-        }
-        catch (ValidationException e){
-            msg ['msg'] = "Error:" + e.getMessage()
-        }
-        render msg as JSON
-    }
-
     def index(Integer max) {
+        //Qualquer coisa
         params.max = Math.min(max ?: 10, 100)
         respond contactoMsgService.list(params), model:[contactoMsgCount: contactoMsgService.count()]
     }

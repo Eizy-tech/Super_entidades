@@ -5,14 +5,12 @@ class Vaga {
     String funcoes
     String local
     String requisitos
-    Date dataRegisto
-    Date dataValidade
-    Date dataModif
+    Date data_publicacao
+    Date data_validade
     String estado
     Entidade entidade
     CategoriaVaga categoria
-    Utilizador utilizadorRegisto, utilizadorModif
-
+    Date dataRegisto, dataModif
 
     static belongsTo = [entidade:Entidade,categoria:CategoriaVaga]
 

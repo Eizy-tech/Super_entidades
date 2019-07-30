@@ -8,7 +8,8 @@ class ContactoMsg {
     String assunto
     String mensagem
     Entidade entidade
-    Date dataEnvio
+    Date dataRegisto, dataModif
+
 
     static belongsTo = [entidade: Entidade]
     static constraints = {

@@ -15,16 +15,12 @@
     %{--<link href="assets/css/app.min.css" rel="stylesheet" />--}%
     <asset:stylesheet src="app.min.css"/>
     <asset:stylesheet src="fonts/css/v4-shims.css"/>
-    <asset:stylesheet src="animate.css"/>
-    <asset:stylesheet src="style.css"/>
-    <asset:stylesheet src="media-queries.css"/>
-    <asset:stylesheet src="carousel.css"/>
 
     <!-- ================== END BASE CSS STYLE ================== -->
 </head>
 <body>
 <!-- BEGIN #page-container -->
-<div id="app" class="app h-100">
+<div id="app" class="app app-header-fixed app-sidebar-fixed">
     <!-- BEGIN #header -->
     <header id="header" class="app-header">
         <!-- BEGIN navbar-toggle-minify -->
@@ -73,199 +69,52 @@
         </div>
         <!-- END navbar-search -->
     </header>
-
-    <div class="d-flex flex-row bd-highlight mb-3 bg-cyan h-100">
-        <div class="p-2 bd-highlight bg-red col-md-2">
-            Categoria Menu
-        </div>
-        <div class="p-2 bd-highlight bg-yellow col-md-10">
-
-            %{--<div class="row p-5 bg-gray-dark">--}%
-                %{--<div class="top-content">--}%
-                    %{--<div class="container-fluid">--}%
-                        %{--<div id="carousel-example" class="carousel slide" data-ride="carousel">--}%
-                            %{--<div class="carousel-inner row w-100 mx-auto" role="listbox">--}%
-                                %{--<div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3 active">--}%
-                                    %{--<asset:image class="img-fluid mx-auto d-block" src="eizy.png" style="height: 210px"/>--}%
-                                %{--</div>--}%
-                                %{--<div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3">--}%
-                                    %{--<asset:image class="img-fluid mx-auto d-block" src="eizy.png" style="height: 210px"/>--}%
-                                %{--</div>--}%
-                                %{--<div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3">--}%
-                                    %{--<asset:image class="img-fluid mx-auto d-block" src="eizy.png" style="height: 210px"/>--}%
-                                %{--</div>--}%
-                                %{--<div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3">--}%
-                                    %{--<asset:image class="img-fluid mx-auto d-block" src="eizy.png" style="height: 210px"/>--}%
-                                %{--</div>--}%
-                                %{--<div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3">--}%
-                                    %{--<asset:image class="img-fluid mx-auto d-block" src="eizy.png" style="height: 210px"/>--}%
-                                %{--</div>--}%
-                                %{--<div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3">--}%
-                                    %{--<asset:image class="img-fluid mx-auto d-block" src="eizy.png" style="height: 210px"/>--}%
-                                %{--</div>--}%
-                                %{--<div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3">--}%
-                                    %{--<asset:image class="img-fluid mx-auto d-block" src="eizy.png" style="height: 210px"/>--}%
-                                %{--</div>--}%
-                                %{--<div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3">--}%
-                                    %{--<asset:image class="img-fluid mx-auto d-block" src="eizy.png" style="height: 210px"/>--}%
-                                %{--</div>--}%
-                            %{--</div>--}%
-                            %{--<a class="carousel-control-prev" href="#carousel-example" role="button" data-slide="prev">--}%
-                                %{--<span class="carousel-control-prev-icon" aria-hidden="true"></span>--}%
-                                %{--<span class="sr-only">Previous</span>--}%
-                            %{--</a>--}%
-                            %{--<a class="carousel-control-next" href="#carousel-example" role="button" data-slide="next">--}%
-                                %{--<span class="carousel-control-next-icon" aria-hidden="true"></span>--}%
-                                %{--<span class="sr-only">Next</span>--}%
-                            %{--</a>--}%
-                        %{--</div>--}%
-                    %{--</div>--}%
-                %{--</div>--}%
-            %{--</div>--}%
-
-            <div class="row p-5">
-                <div class="col-md-2">
-                    <div class="card mb-4 shadow-lg image-container">
-                        <asset:image class="image" src="eizy.png" style="height: 160px"/>
-                        <div class="middle">
-                            <div class="text d-flex flex-row">
-                                <button class="btn btn-sm btn-primary mr-3" title="Mapa"><i class="fa fa-map"></i></button>
-                                <button class="btn btn-sm btn-warning" title="Contactos"><i class="fa fa-phone"></i></button>
+    <!-- END #header -->
+    <!-- BEGIN #sidebar -->
+    <sidebar id="sidebar" class="app-sidebar position-fixed">
+        <!-- BEGIN scrollbar -->
+        <div data-scrollbar="true" data-height="100%">
+            <!-- BEGIN nav -->
+            <ul class="nav">
+                <li class="nav-profile">
+                    <div class="profile-img">
+                        %{--<img src="assets/img/user.jpg" />--}%
+                    </div>
+                    <div class="profile-info">
+                        <h4>John Smith</h4>
+                        <p>Frontend Developer</p>
+                    </div>
+                </li>
+                <li class="nav-project">
+                    <a href="#">
+                        <div class="project-icon">
+                            <i class="fab fa-github"></i>
+                        </div>
+                        <div class="project-info">
+                            <h4 class="project-title">Repository Settings</h4>
+                            <div class="progress">
+                                <div class="progress-bar bg-gradient-blue-purple-to-right" style="width: 50%;" role="progressbar"></div>
                             </div>
                         </div>
-                        <div class="card-body" style="border-top: 1px solid cadetblue">
-                            <span class="badge badge-pill badge-green float-lg-right" style="margin-top: -24px; margin-right: -14.5px">Tecnologia</span>
-                            <p class="card-text"><b>Eizy Technology</b></p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-2">
-                    <div class="card mb-4 shadow-lg image-container">
-                        <asset:image class="image" src="eizy.png" style="height: 160px"/>
-                        <div class="middle">
-                            <div class="text d-flex flex-row">
-                                <button class="btn btn-sm btn-primary mr-3" title="Mapa"><i class="fa fa-map"></i></button>
-                                <button class="btn btn-sm btn-warning" title="Contactos"><i class="fa fa-phone"></i></button>
-                            </div>
-                        </div>
-                        <div class="card-body" style="border-top: 1px solid cadetblue">
-                            <span class="badge badge-pill badge-green float-lg-right" style="margin-top: -24px; margin-right: -14.5px">Tecnologia</span>
-                            <p class="card-text"><b>Eizy Technology</b></p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-2">
-                    <div class="card mb-4 shadow-lg image-container">
-                        <asset:image class="image" src="eizy.png" style="height: 160px"/>
-                        <div class="middle">
-                            <div class="text d-flex flex-row">
-                                <button class="btn btn-sm btn-primary mr-3" title="Mapa"><i class="fa fa-map"></i></button>
-                                <button class="btn btn-sm btn-warning" title="Contactos"><i class="fa fa-phone"></i></button>
-                            </div>
-                        </div>
-                        <div class="card-body" style="border-top: 1px solid cadetblue">
-                            <span class="badge badge-pill badge-green float-lg-right" style="margin-top: -24px; margin-right: -14.5px">Tecnologia</span>
-                            <p class="card-text"><b>Eizy Technology</b></p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-2">
-                    <div class="card mb-4 shadow-lg image-container">
-                        <asset:image class="image" src="eizy.png" style="height: 160px"/>
-                        <div class="middle">
-                            <div class="text d-flex flex-row">
-                                <button class="btn btn-sm btn-primary mr-3" title="Mapa"><i class="fa fa-map"></i></button>
-                                <button class="btn btn-sm btn-warning" title="Contactos"><i class="fa fa-phone"></i></button>
-                            </div>
-                        </div>
-                        <div class="card-body" style="border-top: 1px solid cadetblue">
-                            <span class="badge badge-pill badge-green float-lg-right" style="margin-top: -24px; margin-right: -14.5px">Tecnologia</span>
-                            <p class="card-text"><b>Eizy Technology</b></p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-2">
-                    <div class="card mb-4 shadow-lg image-container">
-                        <asset:image class="image" src="eizy.png" style="height: 160px"/>
-                        <div class="middle">
-                            <div class="text d-flex flex-row">
-                                <button class="btn btn-sm btn-primary mr-3" title="Mapa"><i class="fa fa-map"></i></button>
-                                <button class="btn btn-sm btn-warning" title="Contactos"><i class="fa fa-phone"></i></button>
-                            </div>
-                        </div>
-                        <div class="card-body" style="border-top: 1px solid cadetblue">
-                            <span class="badge badge-pill badge-green float-lg-right" style="margin-top: -24px; margin-right: -14.5px">Tecnologia</span>
-                            <p class="card-text"><b>Eizy Technology</b></p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-2">
-                    <div class="card mb-4 shadow-lg image-container">
-                        <asset:image class="image" src="eizy.png" style="height: 160px"/>
-                        <div class="middle">
-                            <div class="text d-flex flex-row">
-                                <button class="btn btn-sm btn-primary mr-3" title="Mapa"><i class="fa fa-map"></i></button>
-                                <button class="btn btn-sm btn-warning" title="Contactos"><i class="fa fa-phone"></i></button>
-                            </div>
-                        </div>
-                        <div class="card-body" style="border-top: 1px solid cadetblue">
-                            <span class="badge badge-pill badge-green float-lg-right" style="margin-top: -24px; margin-right: -14.5px">Tecnologia</span>
-                            <p class="card-text"><b>Eizy Technology</b></p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row p-5 bg-gray-dark">
-        <div class="top-content">
-            <div class="container-fluid">
-                <div id="carousel-example" class="carousel slide" data-ride="carousel">
-                    <div class="carousel-inner row w-100 mx-auto" role="listbox">
-                        <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3 active">
-                            <asset:image class="img-fluid mx-auto d-block" src="eizy.png" style="height: 210px"/>
-                        </div>
-                        <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3">
-                            <asset:image class="img-fluid mx-auto d-block" src="eizy.png" style="height: 210px"/>
-                        </div>
-                        <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3">
-                            <asset:image class="img-fluid mx-auto d-block" src="eizy.png" style="height: 210px"/>
-                        </div>
-                        <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3">
-                            <asset:image class="img-fluid mx-auto d-block" src="eizy.png" style="height: 210px"/>
-                        </div>
-                        <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3">
-                            <asset:image class="img-fluid mx-auto d-block" src="eizy.png" style="height: 210px"/>
-                        </div>
-                        <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3">
-                            <asset:image class="img-fluid mx-auto d-block" src="eizy.png" style="height: 210px"/>
-                        </div>
-                        <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3">
-                            <asset:image class="img-fluid mx-auto d-block" src="eizy.png" style="height: 210px"/>
-                        </div>
-                        <div class="carousel-item col-12 col-sm-6 col-md-4 col-lg-3">
-                            <asset:image class="img-fluid mx-auto d-block" src="eizy.png" style="height: 210px"/>
-                        </div>
-                    </div>
-                    <a class="carousel-control-prev" href="#carousel-example" role="button" data-slide="prev">
-                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Previous</span>
+                        <div class="project-percentage">50%</div>
                     </a>
-                    <a class="carousel-control-next" href="#carousel-example" role="button" data-slide="next">
-                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                        <span class="sr-only">Next</span>
-                    </a>
-                </div>
-            </div>
+                </li>
+                <li class="nav-divider"></li>
+                <li class="nav-copyright">&copy; 2019 seanTheme All Right Reserved</li>
+            </ul>
+            <!-- END nav -->
         </div>
-    </div>
+        <!-- END scrollbar -->
+    </sidebar>
+    <!-- END #sidebar -->
 
+    <!-- BEGIN #content -->
+    <div id="content" class="app-content">
+        <g:layoutBody/>
+    </div>
+    <!-- END #content -->
+
+    <!-- BEGIN btn-scroll-top -->
     <a href="#" data-click="scroll-top" class="btn-scroll-top fade"><i class="fa fa-arrow-up"></i></a>
     <!-- END btn-scroll-top -->
 </div>
@@ -276,30 +125,7 @@
 <asset:javascript src="app.min.js"/>
 <!-- ================== END BASE JS ================== -->
 <script>
-    $('#carousel-example').on('slide.bs.carousel', function (e) {
-        /*
-            CC 2.0 License Iatek LLC 2018
-            Attribution required
-        */
-        var $e = $(e.relatedTarget);
-        var idx = $e.index();
-        var itemsPerSlide = 5;
-        var totalItems = $('.carousel-item').length;
 
-        if (idx >= totalItems-(itemsPerSlide-1)) {
-            var it = itemsPerSlide - (totalItems - idx);
-            for (var i=0; i<it; i++) {
-                // append slides to end
-                if (e.direction=="left") {
-                    $('.carousel-item').eq(i).appendTo('.carousel-inner');
-                }
-                else {
-                    $('.carousel-item').eq(0).appendTo('.carousel-inner');
-                }
-            }
-        }
-        console.log('fader')
-    });
 </script>
 </body>
 

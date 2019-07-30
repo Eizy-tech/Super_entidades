@@ -1,7 +1,5 @@
 package super_entidades
 
-import grails.converters.JSON
-import grails.plugin.springsecurity.annotation.Secured
 import grails.validation.ValidationException
 import static org.springframework.http.HttpStatus.*
 
@@ -10,35 +8,6 @@ class CategoriaVagaController {
     CategoriaVagaService categoriaVagaService
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
-    
-    def springSecurityService
-    def utilizadorLogado(){
-        def utilizador = (Utilizador)springSecurityService.currentUser
-        return utilizador
-    }
-
-    // Metodo para adicionar categoriaVaga
-    // Somente utilizador autorizado
-
-    @Secured(['ROLE_ADMIN' , 'ROLE_USER'])
-    def salvar(CategoriaVaga categoriaVaga) {
-
-        categoriaVaga.setDataRegisto(new Date())
-        categoriaVaga.setDataModif(new Date())
-
-        categoriaVaga.utilizadorRegisto = utilizadorLogado()
-        categoriaVaga.utilizadorModif = utilizadorLogado()
-
-        def msg = [:]
-        try {
-            categoriaVagaService.save(categoriaVaga)
-            msg['msg'] = "Salvo com Sucesso"
-            msg['categoria'] = categoriaVaga
-        } catch (ValidationException e) {
-            msg ['msg'] = "Error:" + e.getMessage()
-        }
-        render msg as JSON
-    }
 
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)

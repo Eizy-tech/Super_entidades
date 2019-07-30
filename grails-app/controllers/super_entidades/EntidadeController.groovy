@@ -12,10 +12,34 @@ class EntidadeController {
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
+    //Chamada do utilizador actualmente logado
+    def springSecurityService
+    def utilizadorLogado(){
+        def utilizador = (Utilizador)springSecurityService.currentUser
+        return utilizador
+    }
+
     def index(Integer max) {
         params.max = Math.min(max ?: 10, 100)
         respond entidadeService.list(params), model:[entidadeCount: entidadeService.count()]
     }
+
+    def salvar(Entidade entidade){
+        def msg=[:]
+        entidade.setDataRegisto(new Date())
+        entidade.setDataModif(new Date())
+        entidade.setUtilizadorRegisto(utilizadorLogado())
+        entidade.setUtilizadorModif(utilizadorLogado())
+
+//        salvar entidade
+        try {
+            entidadeService.save(entidade)
+            msg['msg'] = 'Entidade salva com sucesso.'
+        }catch(ValidationException e){
+            msg['msg'] = 'Erro: '+e.getMessage()+'\n Por favor, Contacte um técnico.'
+        }
+    }
+
 
     def show(Long id) {
         respond entidadeService.get(id)
